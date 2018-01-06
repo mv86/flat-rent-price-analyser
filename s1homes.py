@@ -1,6 +1,8 @@
 import logging, re, requests
 from bs4 import BeautifulSoup
 
+# http://www.s1homes.com/rent/search/forrent_search_results.cgi?&bedrooms=2-2&bedroomsMin=2&bedroomsMax=2&type=Flat&whenpropadded=1&keywords=leith
+
 
 def find_flats_s1homes():
     s1homes_url = ('http://www.s1homes.com/rent/search/forrent_search_results.cgi?'
@@ -8,7 +10,7 @@ def find_flats_s1homes():
                    '&bedroomsMin=2'
                    '&bedroomsMax=2'
                    '&type=Flat'
-                   '&whenpropadded='
+                   '&whenpropadded=1'
                    '&keywords=leith')
 
     r = requests.get(s1homes_url)
