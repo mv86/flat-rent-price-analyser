@@ -11,8 +11,8 @@ def main():
     lettingweb_flats = find_flats_lettingweb()
     all_flats = rightmove_flats + s1homes_flats + lettingweb_flats
     for flat_info in all_flats:
-        sql = '''INSERT INTO flat_price_analysis (description, price)
-                 VALUES (%s, %s);'''
+        sql = '''INSERT INTO flat_price_analysis (description, postcode_area, price)
+                 VALUES (%s, %s, %s);'''
         db.connect.insert(sql, flat_info)
 
 

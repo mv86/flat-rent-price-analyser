@@ -10,7 +10,7 @@ def find_flats_lettingweb():
                       '&Term=Leith'
                       '&BedsMin=2&BedsMax=2'
                       '&HasPhotos=false'
-                      '&Added=LastDay')
+                      '&Added=')  # LastDay
 
     r = requests.get(lettingweb_url)
     if r.status_code < 400:
@@ -26,7 +26,8 @@ def find_flats_lettingweb():
                 if i % 2 == 0:
                     i += 1
                     try:
-                        description, postcode_area = get_description(div)
+                        description = get_description(div)
+                        postcode_area = get_postcode_area(description)
                         price = get_price(div)
                         listings.append((description, postcode_area, price))
                     except Exception as e:
@@ -46,10 +47,16 @@ def find_flats_lettingweb():
 def get_description(html_div):
     address = html_div.find('h2', itemprop='name').text.strip()
     raw_description = html_div.find('h2', itemprop='description').text.strip()
-    part_description, postcode_area = raw_description.split('\xa0')
-    description = f'{part_description.strip()}; {address}'
-    postcode_area = postcode_area.strip()
-    return description, postcode_area
+    description, _ = raw_description.split('\xa0')
+    description = description.strip()
+    full_description = f'{description}; {address}'
+    return full_description
+
+
+def get_postcode_area(description):
+    postcode_search = re.search('[A-Z][A-Z]\d+', description)
+    postcode_area = postcode_search.group()
+    return postcode_area
 
 
 def get_price(html_div):

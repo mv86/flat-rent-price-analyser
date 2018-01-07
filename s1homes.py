@@ -11,7 +11,7 @@ def find_flats_s1homes():
                    '&bedroomsMin=2'
                    '&bedroomsMax=2'
                    '&type=Flat'
-                   '&whenpropadded=1'
+                   '&whenpropadded='  # 1
                    '&keywords=leith')
 
     r = requests.get(s1homes_url)
@@ -25,8 +25,9 @@ def find_flats_s1homes():
             for div in divs:
                 try:
                     description = get_description(div)
+                    postcode_area = get_postcode_area(description)
                     price = get_price(div)
-                    listings.append((description, price))
+                    listings.append((description, postcode_area, price))
                 except Exception as e:
                     logger.error(f'Error in div loop: {e}')
             return listings
@@ -45,6 +46,12 @@ def get_description(html_div):
     address = html_div.h4.text.strip()
     full_description = f'{description}; {address}'
     return full_description
+
+
+def get_postcode_area(description):
+    postcode_search = re.search('[A-Z][A-Z]\d+', description)
+    postcode_area = postcode_search.group()
+    return postcode_area
 
 
 def get_price(html_div):
