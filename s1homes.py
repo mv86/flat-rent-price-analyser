@@ -1,5 +1,6 @@
-import logging, re, requests
+import re, requests
 from bs4 import BeautifulSoup
+from logger import logger
 
 # http://www.s1homes.com/rent/search/forrent_search_results.cgi?&bedrooms=2-2&bedroomsMin=2&bedroomsMax=2&type=Flat&whenpropadded=1&keywords=leith
 
@@ -16,7 +17,7 @@ def find_flats_s1homes():
     r = requests.get(s1homes_url)
     if r.status_code < 400:
         if r.status_code != 200:
-            logging.info(f'Status code = {r.status_code}')
+            logger.warning(f'Status code = {r.status_code}')
         try:
             soup = BeautifulSoup(r.text, 'html.parser')
             divs = soup.find_all('div', class_='row listing ')
@@ -27,13 +28,13 @@ def find_flats_s1homes():
                     price = get_price(div)
                     listings.append((description, price))
                 except Exception as e:
-                    logging.error(f'Error in div loop: {e}')
+                    logger.error(f'Error in div loop: {e}')
             return listings
         except Exception as e:
-            logging.error(f'Error in soup parsing: {e}')
+            logger.error(f'Error in soup parsing: {e}')
             return []
     else:
-        logging.error(f'Error code = {r.status_code}')
+        logger.error(f'Error code = {r.status_code}')
         return []
 
 

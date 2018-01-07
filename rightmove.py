@@ -1,5 +1,6 @@
-import logging, re, requests
+import re, requests
 from bs4 import BeautifulSoup
+from logger import logger
 
 # http://www.rightmove.co.uk/property-to-rent/find.html/?searchType=RENT&locationIdentifier=REGION%5E66954&insId=1&radius=0.0&minBedrooms=2&maxBedrooms=2&maxDaysSinceAdded=1&houseFlatShare=false
 
@@ -15,7 +16,7 @@ def find_flats_rightmove():
     r = requests.get(rightmove_url)
     if r.status_code < 400:
         if r.status_code != 200:
-            logging.info(f'Status code = {r.status_code}')
+            logger.warning(f'Status code = {r.status_code}')
         try:
             soup = BeautifulSoup(r.text, 'html.parser')
             divs = soup.find_all('div', class_='is-list')  # replaced 'l-searchResult'
@@ -28,16 +29,16 @@ def find_flats_rightmove():
                         listings.append((description, price))
                     else:
                         # TODO Does this log the same ammount of errors every day?
-                        logging.error(f'Description: {description}, Price: {price}.')
+                        logger.error(f'Description: {description}, Price: {price}.')
                 except Exception as e:
-                    logging.error(f'Error: {e}')
+                    logger.error(f'Error: {e}')
                     return []
             return listings
         except Exception as e:
-            logging.error(f'Error: {e}')
+            logger.error(f'Error: {e}')
             return []
     else:
-        logging.error(f'Error code = {r.status_code}')
+        logger.error(f'Error code = {r.status_code}')
         return []
 
 
@@ -67,5 +68,5 @@ def extract_price(original_string):
                 price, _ = price.split('.')
             return int(price)
         except Exception as e:
-            logging.error(f'Error: {e}')
+            logger.error(f'Error: {e}')
             return 0
