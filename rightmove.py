@@ -10,7 +10,7 @@ def find_flats_rightmove():
                      '?searchType=RENT'
                      '&locationIdentifier=REGION%5E66954&insId=1&radius=0.0'
                      '&minBedrooms=2&maxBedrooms=2'
-                     '&maxDaysSinceAdded='  # 1
+                     '&maxDaysSinceAdded=1'
                      '&houseFlatShare=false')
 
     r = requests.get(rightmove_url)
@@ -30,10 +30,10 @@ def find_flats_rightmove():
                     description = get_description(div)
                     postcode_area = get_postcode_area(description)
                     price = get_price(div)
-                    listings.append((description, postcode_area, price))
+                    listings.append((description, postcode_area, price, 'rightmove'))
                 except Exception as e:
                     logger.error(f'Error: {e}')
-                    return []
+                    continue
             return listings
         except Exception as e:
             logger.error(f'Error: {e}')
@@ -52,7 +52,10 @@ def get_description(html_div):
 
 def get_postcode_area(description):
     postcode_search = re.search('[A-Z][A-Z]\d+', description)
-    postcode_area = postcode_search.group()
+    if postcode_search:
+        postcode_area = postcode_search.group()
+    else:
+        postcode_area = ''
     return postcode_area
 
 
@@ -65,15 +68,11 @@ def get_price(html_div):
 
 def extract_price(original_string):
     price = re.search('\d+(,\d+)?(.\d+)?', original_string)
-    if not price:
-        return 0
+    if price:
+        price = price.group().replace(',', '')
+        # Remove decimal place and pence
+        if '.' in price:
+            price, _ = price.split('.')
+        return int(price)
     else:
-        try:
-            price = price.group().replace(',', '')
-            # Remove decimal place and pence
-            if '.' in price:
-                price, _ = price.split('.')
-            return int(price)
-        except Exception as e:
-            logger.error(f'Error: {e}')
-            return 0
+        return 0

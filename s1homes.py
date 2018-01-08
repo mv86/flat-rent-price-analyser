@@ -11,7 +11,7 @@ def find_flats_s1homes():
                    '&bedroomsMin=2'
                    '&bedroomsMax=2'
                    '&type=Flat'
-                   '&whenpropadded='  # 1
+                   '&whenpropadded=1'
                    '&keywords=leith')
 
     r = requests.get(s1homes_url)
@@ -27,9 +27,10 @@ def find_flats_s1homes():
                     description = get_description(div)
                     postcode_area = get_postcode_area(description)
                     price = get_price(div)
-                    listings.append((description, postcode_area, price))
+                    listings.append((description, postcode_area, price, 's1homes'))
                 except Exception as e:
                     logger.error(f'Error in div loop: {e}')
+                    continue
             return listings
         except Exception as e:
             logger.error(f'Error in soup parsing: {e}')
@@ -50,7 +51,10 @@ def get_description(html_div):
 
 def get_postcode_area(description):
     postcode_search = re.search('[A-Z][A-Z]\d+', description)
-    postcode_area = postcode_search.group()
+    if postcode_search:
+        postcode_area = postcode_search.group()
+    else:
+        postcode_area = ''
     return postcode_area
 
 
@@ -58,5 +62,8 @@ def get_price(html_div):
     h5 = html_div.find_all('h5')
     price_string = h5[0].text.strip()
     raw_price = re.search('\d+(,\d+)?', price_string)
-    price = raw_price.group().replace(',', '')
+    if raw_price:
+        price = raw_price.group().replace(',', '')
+    else:
+        price = 0
     return int(price)

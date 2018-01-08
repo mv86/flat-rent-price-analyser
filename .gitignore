@@ -3,3 +3,4 @@ __pycache__/
 *.py[cod]
 scraper_logs.log
 database.ini
+table_data.txt

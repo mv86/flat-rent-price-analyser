@@ -1,7 +1,10 @@
 from configparser import ConfigParser
 
 
-def config(filename='db/database.ini', section='postgresql'):
+ini_file = 'home/max/Python/projects/gumtree_scraper/db/database.ini'
+
+
+def config(filename=ini_file, section='postgresql'):
     parser = ConfigParser()
     parser.read(filename)
     db = {}
