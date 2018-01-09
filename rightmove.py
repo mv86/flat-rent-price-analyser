@@ -10,7 +10,7 @@ def find_flats_rightmove():
                      '?searchType=RENT'
                      '&locationIdentifier=REGION%5E66954&insId=1&radius=0.0'
                      '&minBedrooms=2&maxBedrooms=2'
-                     '&maxDaysSinceAdded=1'
+                     '&maxDaysSinceAdded='  # 1
                      '&houseFlatShare=false')
 
     r = requests.get(rightmove_url)

@@ -11,7 +11,7 @@ def find_flats_s1homes():
                    '&bedroomsMin=2'
                    '&bedroomsMax=2'
                    '&type=Flat'
-                   '&whenpropadded=1'
+                   '&whenpropadded='  # 1
                    '&keywords=leith')
 
     r = requests.get(s1homes_url)

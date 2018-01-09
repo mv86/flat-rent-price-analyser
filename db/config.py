@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 
 
-ini_file = 'home/max/Python/projects/gumtree_scraper/db/database.ini'
+ini_file = '/home/max/Python/projects/flat_price_analyser/db/database.ini'
 
 
 def config(filename=ini_file, section='postgresql'):

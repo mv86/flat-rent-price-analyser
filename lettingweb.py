@@ -10,7 +10,7 @@ def find_flats_lettingweb():
                       '&Term=Leith'
                       '&BedsMin=2&BedsMax=2'
                       '&HasPhotos=false'
-                      '&Added=LastDay')
+                      '&Added=')  # LastDay
 
     r = requests.get(lettingweb_url)
     if r.status_code < 400:

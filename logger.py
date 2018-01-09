@@ -1,8 +1,11 @@
 import logging
 
+log_file = '/home/max/Python/projects/flat_price_analyser/scraper_logs.log'
+log_format = '%(levelname)s:%(asctime)s:%(funcName)s:%(message)s'
+
 logging.basicConfig(level=logging.WARNING,
-                    filename='/home/max/Python/projects/gumtree_scraper/scraper_logs.log',
-                    format='%(levelname)s:%(asctime)s:%(funcName)s:%(message)s',
+                    filename=log_file,
+                    format=log_format,
                     datefmt='%d-%m-%Y')
 
 logger = logging.getLogger(__name__)

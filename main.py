@@ -1,4 +1,4 @@
-#!/home/max/Python/projects/gumtree_scraper/venv/bin/python
+#!/home/max/Python/projects/flat_price_analyser/venv/bin/python
 import db.connect
 from s1homes import find_flats_s1homes
 from rightmove import find_flats_rightmove
@@ -23,10 +23,11 @@ def insert_daily_data():
 
 
 def select_all_data():
+    # TODO Format data properly into file
     sql = 'SELECT * FROM flat_price_analysis;'
     flat_price_analysis_rows = db.connect.select(sql, ())
-    filename = '/home/max/Python/projects/gumtree_scraper/table_data.txt'
-    with open(filename, 'a') as f:
+    file = '/home/max/Python/projects/flat_price_analyser/table_data.txt'
+    with open(file, 'w') as f:
         for row in flat_price_analysis_rows:
             line_row = f'{str(row)}\n'
             f.write(line_row)
