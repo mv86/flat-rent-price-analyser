@@ -5,7 +5,7 @@ from logger import logger
 # http://www.rightmove.co.uk/property-to-rent/find.html/?searchType=RENT&locationIdentifier=REGION%5E66954&insId=1&radius=0.0&minBedrooms=2&maxBedrooms=2&maxDaysSinceAdded=1&houseFlatShare=false
 
 
-def find_flats_rightmove():
+def scrape():
     rightmove_url = ('http://www.rightmove.co.uk/property-to-rent/find.html/'
                      '?searchType=RENT'
                      '&locationIdentifier=REGION%5E66954&insId=1&radius=0.0'
@@ -30,6 +30,9 @@ def find_flats_rightmove():
                     description = get_description(div)
                     postcode_area = get_postcode_area(description)
                     price = get_price(div)
+                    if not price > 0:
+                        logger.warning(f'{price} not a valid price. Skipping div')
+                        continue
                     listings.append((description, postcode_area, price, 'rightmove'))
                 except Exception as e:
                     logger.error(f'Error: {e}')

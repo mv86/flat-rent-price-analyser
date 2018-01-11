@@ -5,7 +5,7 @@ from logger import logger
 # http://www.s1homes.com/rent/search/forrent_search_results.cgi?&bedrooms=2-2&bedroomsMin=2&bedroomsMax=2&type=Flat&whenpropadded=1&keywords=leith
 
 
-def find_flats_s1homes():
+def scrape():
     s1homes_url = ('http://www.s1homes.com/rent/search/forrent_search_results.cgi?'
                    '&bedrooms=2-2'
                    '&bedroomsMin=2'
@@ -27,6 +27,9 @@ def find_flats_s1homes():
                     description = get_description(div)
                     postcode_area = get_postcode_area(description)
                     price = get_price(div)
+                    if not price > 0:
+                        logger.warning(f'{price} not a valid price. Skipping div')
+                        continue
                     listings.append((description, postcode_area, price, 's1homes'))
                 except Exception as e:
                     logger.error(f'Error in div loop: {e}')

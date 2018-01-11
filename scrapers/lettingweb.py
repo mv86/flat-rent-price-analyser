@@ -5,7 +5,7 @@ from logger import logger
 # https://www.lettingweb.com/flats-to-rent/leith?&Term=Leith&BedsMin=2&BedsMax=2&HasPhotos=false&Added=LastDay
 
 
-def find_flats_lettingweb():
+def scrape():
     lettingweb_url = ('https://www.lettingweb.com/flats-to-rent/leith?'
                       '&Term=Leith'
                       '&BedsMin=2&BedsMax=2'
@@ -29,6 +29,9 @@ def find_flats_lettingweb():
                         description = get_description(div)
                         postcode_area = get_postcode_area(description)
                         price = get_price(div)
+                        if not price > 0:
+                            logger.warning(f'{price} not a valid price. Skipping div')
+                            continue
                         listings.append((description, postcode_area, price, 'lettingweb'))
                     except Exception as e:
                         logger.error(f'Error in div loop: {e}')
