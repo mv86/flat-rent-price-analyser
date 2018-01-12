@@ -1,27 +1,24 @@
 import statistics
 import db.connect
 
+# TODO add functionality to check average by postcode
+
 
 def calculate_median(month):
-    if type(month) is not str:
+    if not isinstance(str, month):
         raise TypeError('String in required for month argument')
-    month = month.lower()
-    if month in month_dictionary:
-        sql_month = month_dictionary[month]
+    month = month.lower().strip()
+    if month in MONTH_DICTIONARY:
+        sql_month = MONTH_DICTIONARY[month]
     else:
         raise ValueError("Month argument needs to be a valid month in either format 'apr' or 'april'")
     sql = "SELECT price FROM flat_price_analysis WHERE date_part('month', created_on) = (%s);"
     monthly_flat_prices = db.connect.select(sql, (sql_month,))
-    print(monthly_flat_prices)
-    print()
-    # file = '/home/max/Python/projects/flat_price_analyser/month_data.txt'
-    # with open(file, 'w') as f:
-    #         f.write(str(table))
     median_price = statistics.median(monthly_flat_prices[0])
     print(median_price)
 
 
-month_dictionary = {
+MONTH_DICTIONARY = {
     'jan': 1,
     'january': 1,
     'feb': 2,

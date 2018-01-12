@@ -53,7 +53,7 @@ def get_description(html_div):
 
 
 def get_postcode_area(description):
-    postcode_search = re.search('[A-Z][A-Z]\d+', description)
+    postcode_search = re.search(r'[A-Z][A-Z]\d+', description)
     if postcode_search:
         postcode_area = postcode_search.group()
     else:
@@ -64,7 +64,7 @@ def get_postcode_area(description):
 def get_price(html_div):
     h5 = html_div.find_all('h5')
     price_string = h5[0].text.strip()
-    raw_price = re.search('\d+(,\d+)?', price_string)
+    raw_price = re.search(r'\d+(,\d+)?', price_string)
     if raw_price:
         price = raw_price.group().replace(',', '')
     else:

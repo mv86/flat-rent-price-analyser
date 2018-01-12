@@ -6,5 +6,5 @@ CREATE TABLE flat_price_analysis (
 	postcode_area VARCHAR(4),
 	price INT,
 	website VARCHAR(20),
-	created_on DATE DEFAULT CURRENT_DATE
-)
+	created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

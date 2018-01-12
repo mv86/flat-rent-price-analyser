@@ -1,6 +1,6 @@
 #!/home/max/Python/projects/flat_price_analyser/venv/bin/python
-import db.connect
 from prettytable import PrettyTable
+import db.connect
 from scrapers import rightmove, s1homes, lettingweb
 
 
@@ -34,7 +34,7 @@ def select_all_data():
             row_info.append(str(item))
         table.add_row(row_info)
     with open(file, 'w') as f:
-            f.write(str(table))
+        f.write(str(table))
 
 
 if __name__ == '__main__':

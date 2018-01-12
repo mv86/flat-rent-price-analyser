@@ -54,7 +54,7 @@ def get_description(html_div):
 
 
 def get_postcode_area(description):
-    postcode_search = re.search('[A-Z][A-Z]\d+', description)
+    postcode_search = re.search(r'[A-Z][A-Z]\d+', description)
     if postcode_search:
         postcode_area = postcode_search.group()
     else:
@@ -70,7 +70,7 @@ def get_price(html_div):
 
 
 def extract_price(original_string):
-    price = re.search('\d+(,\d+)?(.\d+)?', original_string)
+    price = re.search(r'\d+(,\d+)?(.\d+)?', original_string)
     if price:
         price = price.group().replace(',', '')
         # Remove decimal place and pence

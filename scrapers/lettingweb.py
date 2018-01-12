@@ -50,6 +50,7 @@ def scrape():
 def get_description(html_div):
     address = html_div.find('h2', itemprop='name').text.strip()
     raw_description = html_div.find('h2', itemprop='description').text.strip()
+    # TODO description occasionaly has extra info, remove this
     description, _ = raw_description.split('\xa0')
     description = description.strip()
     full_description = f'{description}; {address}'
@@ -57,7 +58,7 @@ def get_description(html_div):
 
 
 def get_postcode_area(description):
-    postcode_search = re.search('[A-Z][A-Z]\d+', description)
+    postcode_search = re.search(r'[A-Z][A-Z]\d+', description)
     if postcode_search:
         postcode_area = postcode_search.group()
     else:
@@ -67,7 +68,7 @@ def get_postcode_area(description):
 
 def get_price(html_div):
     price_string = html_div.find('h2', itemprop='offers').text.strip()
-    raw_price = re.search('\d+(,\d+)?', price_string)
+    raw_price = re.search(r'\d+(,\d+)?', price_string)
     if raw_price:
         price = raw_price.group().replace(',', '')
     else:
