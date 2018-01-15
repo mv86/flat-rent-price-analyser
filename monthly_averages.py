@@ -1,3 +1,4 @@
+"""Calculate monthly average/s of the flat prices stored in flat_price_analysis table"""
 import statistics
 import db.connect
 
@@ -5,13 +6,16 @@ import db.connect
 
 
 def calculate_median(month):
+	"""TODO"""
     if not isinstance(str, month):
         raise TypeError('String in required for month argument')
     month = month.lower().strip()
     if month in MONTH_DICTIONARY:
         sql_month = MONTH_DICTIONARY[month]
     else:
-        raise ValueError("Month argument needs to be a valid month in either format 'apr' or 'april'")
+        raise ValueError(
+        	"Valid format for month: full name or three letter abreviation"
+        )
     sql = "SELECT price FROM flat_price_analysis WHERE date_part('month', created_on) = (%s);"
     monthly_flat_prices = db.connect.select(sql, (sql_month,))
     median_price = statistics.median(monthly_flat_prices[0])

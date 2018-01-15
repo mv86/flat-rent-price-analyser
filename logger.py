@@ -1,11 +1,16 @@
+"""Creates logger settings for project"""
 import logging
 
-log_file = '/home/max/Python/projects/flat_price_analyser/scraper_logs.log'
-log_format = '%(levelname)s:%(asctime)s:%(funcName)s:%(message)s'
 
-logging.basicConfig(level=logging.WARNING,
-                    filename=log_file,
-                    format=log_format,
-                    datefmt='%d-%m-%Y')
+def config_logger():
+    """Creates project-wide logger, defines settings and returns"""
+    file_path = '/home/max/Python/projects/flat_price_analyser/scraper_logs.log'
+    logging_format = '%(levelname)s:%(asctime)s:%(funcName)s:%(message)s'
+    logging.basicConfig(level=logging.WARNING,
+                        filename=file_path,
+                        format=logging_format,
+                        datefmt='%d-%m-%Y')
+    logger = logging.getLogger(__name__)
+    return logger
 
-logger = logging.getLogger(__name__)
+LOG = config_logger()

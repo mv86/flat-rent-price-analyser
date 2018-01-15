@@ -1,17 +1,20 @@
+"""Setup database configuration"""
 from configparser import ConfigParser
 
 
-ini_file = '/home/max/Python/projects/flat_price_analyser/db/database.ini'
-
-
-def config(filename=ini_file, section='postgresql'):
+def db_config():
+    """Returns dictionary with database connection configuration"""
+    config_file = '/home/max/Python/projects/flat_price_analyser/db/database.ini'
+    section = 'postgresql'
     parser = ConfigParser()
-    parser.read(filename)
-    db = {}
+    parser.read(config_file)
+    db_params = {}
     if parser.has_section(section):
         params = parser.items(section)
         for param in params:
-            db[param[0]] = param[1]
+            db_params[param[0]] = param[1]
     else:
-        raise Exception(f'Section {section} not found in the {filename} file!')
-    return db
+        raise Exception(
+            f'Section {section} not found in the {config_file} file!'
+        )
+    return db_params
