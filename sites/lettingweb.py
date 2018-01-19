@@ -1,6 +1,8 @@
 """Scrapes weekly flat rental prices from www.lettingweb.com for flats in Leith, Edinburgh """
 from logger import LOG
-from .helper_functions import get_postcode_area, get_num_of_bedrooms, get_price 
+from .helper_functions import (
+    valid_data, extract_postcode_area, extract_num_of_bedrooms, extract_price
+) 
 
 # https://www.lettingweb.com/flats-to-rent/leith?&Term=Leith&BedsMin=1&BedsMax=2&HasPhotos=false&Added=LastDay
 
@@ -22,17 +24,10 @@ def parse(soup):
     wanted_divs = [div for idx, div in enumerate(divs) if idx % 2 != 0]
     for div in wanted_divs:
         try:
-            description, postcode_area, bedrooms, price = extract_flat_info(div)
-            if not description:
-                LOG.warning('No description found. Skipping div')
+            flat_info = extract_flat_info(div)
+            if not valid_data(flat_info): 
                 continue
-            if bedrooms <= 0:
-                LOG.warning(f'Invalid num of bedrooms: {bedrooms}. Skipping div')
-                continue
-            if price <= 0:
-                LOG.warning(f'{price} not a valid price. Skipping div')
-                continue
-            listings.append((description, postcode_area, bedrooms, price, 'lettingweb'))
+            listings.append(flat_info)
         except Exception as exception:
             LOG.error(f'Error in div loop: {exception}')
             continue
@@ -40,7 +35,9 @@ def parse(soup):
 
 
 def extract_flat_info(html_div):
-    """Extracts flat details and returns as variables"""
+    """Extracts flat details and returns a tuple.
+       Tuple = (description, postcode_area, bedrooms, price, website_name)
+    """
     address = html_div.find('h2', itemprop='name').text.strip()
     raw_description = html_div.find('h2', itemprop='description').text.strip()
     # TODO description occasionaly has extra info, remove this
@@ -48,11 +45,12 @@ def extract_flat_info(html_div):
     description = description.strip()
     full_description = f'{description}; {address}'
 
-    postcode_area = get_postcode_area(full_description)
+    postcode_area = extract_postcode_area(full_description)
 
-    bedrooms = get_num_of_bedrooms(full_description)
+    bedrooms = extract_num_of_bedrooms(full_description)
 
     price_string = html_div.find('h2', itemprop='offers').text.strip()
-    price = get_price(price_string)
+    price = extract_price(price_string)
 
-    return full_description, postcode_area, bedrooms, price
+    flat_info = (full_description, postcode_area, bedrooms, price, 'lettingweb')
+    return flat_info
