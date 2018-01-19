@@ -10,7 +10,7 @@ URL = ('http://www.rightmove.co.uk/property-to-rent/find.html/'
        '?searchType=RENT'
        '&locationIdentifier=REGION%5E66954&insId=1&radius=0.0'
        '&minBedrooms=1&maxBedrooms=2'
-       '&maxDaysSinceAdded=7'  # 1
+       '&maxDaysSinceAdded='  # 7 1
        '&houseFlatShare=false')
 
 

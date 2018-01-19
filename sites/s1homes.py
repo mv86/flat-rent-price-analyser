@@ -11,7 +11,7 @@ URL = ('http://www.s1homes.com/rent/search/forrent_search_results.cgi?'
        '&bedroomsMin=1'
        '&bedroomsMax=2'
        '&type=Flat'
-       '&whenpropadded=7'  # 1
+       '&whenpropadded='  # 7 1
        '&keywords=leith')
 
 
@@ -45,9 +45,9 @@ def extract_flat_info(html_div):
     address = html_div.h4.text.strip()
     full_description = f'{description}; {address}'
 
-    postcode_area = extract_postcode_area(description)
+    postcode_area = extract_postcode_area(full_description)
 
-    bedrooms = extract_num_of_bedrooms(description)
+    bedrooms = extract_num_of_bedrooms(full_description)
 
     price_string = p_tags[0].text.strip()
     price = extract_price(price_string)

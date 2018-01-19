@@ -8,8 +8,8 @@ def insert_weekly_data():
     """Scrapes flat price data using scrapers package and inserts into db"""
     listings = scraper.scrape_all_sites()
     sql = '''INSERT INTO flat_price_analysis
-             (description, postcode_area, price, website)
-             VALUES (%s, %s, %s, %s);'''
+             (description, postcode_area, bedrooms, price, website)
+             VALUES (%s, %s, %s, %s, %s);'''
     for listing in listings:
         db.connect.insert(sql, listing)
 
@@ -20,7 +20,9 @@ def select_all_data():
     sql = 'SELECT * FROM flat_price_analysis;'
     flat_price_analysis_rows = db.connect.select(sql)
     file_path = '/home/max/Python/projects/flat_price_analyser/table_data.txt'
-    headers = ['ID', 'Description', 'Postcode Area', 'Price', 'Listed On', 'Date Inserted']
+    headers = (
+        ['ID', 'Description', 'Postcode Area', 'Bedrooms', 'Price', 'Listed On', 'Date Inserted']
+    )
     table = PrettyTable(headers)
     for row in flat_price_analysis_rows:
         row_info = []

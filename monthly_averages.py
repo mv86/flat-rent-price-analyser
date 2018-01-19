@@ -2,24 +2,27 @@
 import statistics
 import db.connect
 
-# TODO add functionality to check average by postcode
+# TODO add functionality to check average by postcode and average by num of rooms
 
 
 def calculate_median(month):
-	"""TODO"""
-    if not isinstance(str, month):
-        raise TypeError('String in required for month argument')
+    '''TODO'''
+    if not isinstance(month, str):
+        raise TypeError('String is required for month argument')
     month = month.lower().strip()
     if month in MONTH_DICTIONARY:
         sql_month = MONTH_DICTIONARY[month]
     else:
         raise ValueError(
-        	"Valid format for month: full name or three letter abreviation"
+            "Valid format for month: full name or three letter abreviation"
         )
-    sql = "SELECT price FROM flat_price_analysis WHERE date_part('month', created_on) = (%s);"
+    sql = '''SELECT price FROM flat_price_analysis 
+             WHERE date_part('month', created_on) = (%s);'''
     monthly_flat_prices = db.connect.select(sql, (sql_month,))
-    median_price = statistics.median(monthly_flat_prices[0])
-    print(median_price)
+    # Unpack list of tuples into a list of ints
+    flat_prices = [price[0] for price in monthly_flat_prices]
+    median_price = statistics.median(flat_prices)
+    print(int(median_price))
 
 
 MONTH_DICTIONARY = {

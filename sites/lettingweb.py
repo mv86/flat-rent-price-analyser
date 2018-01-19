@@ -10,7 +10,7 @@ URL = ('https://www.lettingweb.com/flats-to-rent/leith?'
        '&Term=Leith'
        '&BedsMin=1&BedsMax=2'
        '&HasPhotos=false'
-       '&Added=LastWeek')  # LastDay
+       '&Added=')  # LastWeek LastDay
 
 
 def parse(soup):

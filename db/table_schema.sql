@@ -7,5 +7,5 @@ CREATE TABLE flat_price_analysis (
 	bedrooms INT NOT NULL,
 	price INT NOT NULL,
 	website VARCHAR(20) NULL,
-	created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	created_on DATE DEFAULT CURRENT_DATE
 );
