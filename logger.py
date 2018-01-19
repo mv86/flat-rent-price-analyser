@@ -5,8 +5,8 @@ import logging
 def config_logger():
     """Creates project-wide logger, defines settings and returns"""
     file_path = '/home/max/Python/projects/flat_price_analyser/scraper_logs.log'
-    logging_format = '%(levelname)s:%(asctime)s:%(funcName)s:%(message)s'
-    logging.basicConfig(level=logging.WARNING,
+    logging_format = '%(levelname)s:%(asctime)s:%(module)s:%(funcName)s:%(message)s'
+    logging.basicConfig(level=logging.INFO,
                         filename=file_path,
                         format=logging_format,
                         datefmt='%d-%m-%Y')

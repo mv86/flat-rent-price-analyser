@@ -2,20 +2,16 @@
 """Script to scrape data from flat listing websites and store in db. Runs weekly."""
 from prettytable import PrettyTable
 import db.connect
-from scrapers import rightmove, s1homes, lettingweb
+import scraper
 
-
-def insert_daily_data():
+def insert_weekly_data():
     """Scrapes flat price data using scrapers package and inserts into db"""
-    rightmove_info = rightmove.scrape()
-    s1homes_info = s1homes.scrape()
-    lettingweb_info = lettingweb.scrape()
-    all_info = rightmove_info + s1homes_info + lettingweb_info
+    listings = scraper.scrape_all_sites()
     sql = '''INSERT INTO flat_price_analysis
              (description, postcode_area, price, website)
              VALUES (%s, %s, %s, %s);'''
-    for flat_info in all_info:
-        db.connect.insert(sql, flat_info)
+    for listing in listings:
+        db.connect.insert(sql, listing)
 
 
 def select_all_data():
@@ -37,7 +33,7 @@ def select_all_data():
 
 def main():
     """Entry point to script."""
-    insert_daily_data()
+    insert_weekly_data()
     select_all_data()
 
 
