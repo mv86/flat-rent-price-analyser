@@ -10,8 +10,9 @@ def valid_data(flat_info):
     if not description:
         LOG.warning(f'No description found: {website}. Skipping div')
         valid = False
-    if postcode_area not in ('EH6', 'EH7'):
-        LOG.warning(f'{postcode_area} not a valid postcode: {website}. Skipping div')
+    if postcode_area not in ('EH6', 'EH7', ''):
+        LOG.info(f'{postcode_area} not a valid postcode: {website}. Skipping div')
+        valid = False
     if bedrooms <= 0:
         LOG.warning(f'{bedrooms} not a valid num of bedrooms: {website}. Skipping div')
         valid = False

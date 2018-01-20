@@ -10,7 +10,7 @@ URL = ('https://www.lettingweb.com/flats-to-rent/leith?'
        '&Term=Leith'
        '&BedsMin=1&BedsMax=2'
        '&HasPhotos=false'
-       '&Added=')  # LastWeek LastDay
+       '&Added=')  # LastWeek LastDay \xa0
 
 
 def parse(soup):
@@ -38,11 +38,10 @@ def extract_flat_info(html_div):
     """Extract flat details and return a tuple.
        Tuple = (description, postcode_area, bedrooms, price, website_name)
     """
+    description = html_div.find('h2', itemprop='description').text.strip()
     address = html_div.find('h2', itemprop='name').text.strip()
-    raw_description = html_div.find('h2', itemprop='description').text.strip()
-    # TODO description occasionaly has extra info, remove this
-    description, _ = raw_description.split('\xa0')
-    description = description.strip()
+    # Remove excesive internal whitespace from address
+    address = " ".join(address.split())
     full_description = f'{description}; {address}'
 
     postcode_area = extract_postcode_area(full_description)
