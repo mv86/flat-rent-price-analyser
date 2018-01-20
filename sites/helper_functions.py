@@ -1,26 +1,28 @@
-"""Helper functions to help extract required infomation from parsed websites"""
+"""Helper functions for sites package."""
 import re
 from logger import LOG
 
 
 def valid_data(flat_info):
-    """Check if extracted flat info valid, ignoring postcode_area & website. Returns boolean"""
+    """Check if extracted flat info valid. Return boolean."""
     valid = True
-    description, _, bedrooms, price, _ = flat_info
+    description, postcode_area, bedrooms, price, website = flat_info
     if not description:
-        LOG.warning('No description found. Skipping div')
+        LOG.warning(f'No description found: {website}. Skipping div')
         valid = False
+    if postcode_area not in ('EH6', 'EH7'):
+        LOG.warning(f'{postcode_area} not a valid postcode: {website}. Skipping div')
     if bedrooms <= 0:
-        LOG.warning(f'Invalid num of bedrooms: {bedrooms}. Skipping div')
+        LOG.warning(f'{bedrooms} not a valid num of bedrooms: {website}. Skipping div')
         valid = False
     if price <= 0:
-        LOG.warning(f'{price} not a valid price. Skipping div')
+        LOG.warning(f'{price} not a valid price: {website}. Skipping div')
         valid = False
     return valid
 
 
 def extract_postcode_area(description):
-    """Extracts first three postcode chars (i.e EH7) and returns as str"""
+    """Extract first three postcode chars (i.e EH7). Return str, '' if none found."""
     postcode_search = re.search(r'[A-Z][A-Z]\d+', description)
     if postcode_search:
         postcode_area = postcode_search.group()
@@ -30,7 +32,7 @@ def extract_postcode_area(description):
 
 
 def extract_num_of_bedrooms(description):
-    """Extracts the number of bedrooms and returns as int"""
+    """Extract the number of bedrooms in flat. Return int, 0 if none found."""
     bedroom_search = re.search(r'\d bedroom', description)
     bedroom_descr = bedroom_search.group()
     if bedroom_descr:
@@ -40,7 +42,7 @@ def extract_num_of_bedrooms(description):
 
 
 def extract_price(price_string):
-    """Extracts flat price and returns as int"""
+    """Extract flat price. Return int, 0 if none found."""
     raw_price = re.search(r'\d+(,\d+)?(.\d+)?', price_string)
     if raw_price:
         price = raw_price.group().replace(',', '')

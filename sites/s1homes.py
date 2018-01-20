@@ -1,4 +1,4 @@
-"""Scrapes weekly flat rental prices from www.s1homes.com for flats in Leith, Edinburgh."""
+"""Scrape weekly flat rental prices from www.s1homes.com for flats in Leith, Edinburgh."""
 from logger import LOG
 from .helper_functions import (
     valid_data, extract_postcode_area, extract_num_of_bedrooms, extract_price
@@ -16,9 +16,9 @@ URL = ('http://www.s1homes.com/rent/search/forrent_search_results.cgi?'
 
 
 def parse(soup):
-    """Returns a list of tuples containing flat listings from s1homes url.
+    """Return a list of tuples containing flat listings from s1homes url.
        Tuple = (description, postcode_area, bedrooms, price, website_name).
-       Returns an empty list if no data found.
+       Return empty list if no data found.
     """
     listings = []
     divs = soup.find_all('div', class_='row listing ')
@@ -35,8 +35,8 @@ def parse(soup):
 
 
 def extract_flat_info(html_div):
-    """Extracts flat details and returns a tuple.
-       Tuple = (description, postcode_area, bedrooms, price, website_name)
+    """Extract flat details and return a tuple.
+       Tuple = (description, postcode_area, bedrooms, price, website_name).
     """
     p_tags = html_div.find_all('p')
 

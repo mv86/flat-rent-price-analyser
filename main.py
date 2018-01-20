@@ -5,7 +5,7 @@ import db.connect
 import scraper
 
 def insert_weekly_data():
-    """Scrapes flat price data using scrapers package and inserts into db"""
+    """Scrape flat listing data using scraper module and insert into db"""
     listings = scraper.scrape_all_sites()
     sql = '''INSERT INTO flat_price_analysis
              (description, postcode_area, bedrooms, price, website)
@@ -15,7 +15,7 @@ def insert_weekly_data():
 
 
 def select_all_data():
-    """Inserts all current data from flat_price_analysis table into table_data file"""
+    """Insert all current data from flat_price_analysis table into table_data file"""
     # TODO Format data properly into file
     sql = 'SELECT * FROM flat_price_analysis;'
     flat_price_analysis_rows = db.connect.select(sql)
