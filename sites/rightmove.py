@@ -4,13 +4,13 @@ from .helper_functions import (
     valid_data, extract_postcode_area, extract_num_of_bedrooms, extract_price
 )
 
-# http://www.rightmove.co.uk/property-to-rent/find.html/?searchType=RENT&locationIdentifier=REGION%5E66954&insId=1&radius=0.0&minBedrooms=1&maxBedrooms=2&maxDaysSinceAdded=1&houseFlatShare=false
+# http://www.rightmove.co.uk/property-to-rent/find.html/?searchType=RENT&locationIdentifier=REGION%5E66954&insId=1&radius=0.0&minBedrooms=1&maxBedrooms=2&maxDaysSinceAdded=7&houseFlatShare=false
 
 URL = ('http://www.rightmove.co.uk/property-to-rent/find.html/'
        '?searchType=RENT'
        '&locationIdentifier=REGION%5E66954&insId=1&radius=0.0'
        '&minBedrooms=1&maxBedrooms=2'
-       '&maxDaysSinceAdded='  # 7 1
+       '&maxDaysSinceAdded=7'  # 7 1
        '&houseFlatShare=false')
 
 

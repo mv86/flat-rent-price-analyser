@@ -10,8 +10,7 @@ def insert_weekly_data():
     sql = '''INSERT INTO flat_price_analysis
              (description, postcode_area, bedrooms, price, website)
              VALUES (%s, %s, %s, %s, %s);'''
-    for listing in listings:
-        db.connect.insert(sql, listing)
+    db.connect.insert(sql, listings)
 
 
 def select_all_data():

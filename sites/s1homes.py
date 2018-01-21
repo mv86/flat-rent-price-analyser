@@ -11,7 +11,7 @@ URL = ('http://www.s1homes.com/rent/search/forrent_search_results.cgi?'
        '&bedroomsMin=1'
        '&bedroomsMax=2'
        '&type=Flat'
-       '&whenpropadded='  # 7 1
+       '&whenpropadded=7'  # 7 1
        '&keywords=leith')
 
 

@@ -4,13 +4,13 @@ from .helper_functions import (
     valid_data, extract_postcode_area, extract_num_of_bedrooms, extract_price
 ) 
 
-# https://www.lettingweb.com/flats-to-rent/leith?&Term=Leith&BedsMin=1&BedsMax=2&HasPhotos=false&Added=LastDay
+# https://www.lettingweb.com/flats-to-rent/leith?&Term=Leith&BedsMin=1&BedsMax=2&HasPhotos=false&Added=LastWeek
 
 URL = ('https://www.lettingweb.com/flats-to-rent/leith?'
        '&Term=Leith'
        '&BedsMin=1&BedsMax=2'
        '&HasPhotos=false'
-       '&Added=')  # LastWeek LastDay \xa0
+       '&Added=LastWeek')  # LastWeek LastDay \xa0
 
 
 def parse(soup):
