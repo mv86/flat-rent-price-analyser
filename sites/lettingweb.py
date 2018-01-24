@@ -15,7 +15,9 @@ URL = ('https://www.lettingweb.com/flats-to-rent/leith?'
 
 def parse(soup):
     """Return a list of tuples containing flat listings from lettingweb url.
+
        Tuple = (description, postcode_area, price, website_name).
+       
        Return empty list if no data found.
     """
     listings = []
@@ -36,6 +38,7 @@ def parse(soup):
 
 def extract_flat_info(html_div):
     """Extract flat details and return a tuple.
+
        Tuple = (description, postcode_area, bedrooms, price, website_name)
     """
     description = html_div.find('h2', itemprop='description').text.strip()

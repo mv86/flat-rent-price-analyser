@@ -1,6 +1,7 @@
 venv/
 __pycache__/
 *.py[cod]
+tests/
 scraper_logs.log
 database.ini
 table_data.txt

@@ -1,7 +1,7 @@
 """Calculate monthly average/s of the flat prices stored in flat_price_analysis table"""
 import statistics
 import db.connect
-from month_averages import FlatPriceAverages
+from flat_price_averages import FlatPriceAverages
 
 
 def calculate_average_for(month):

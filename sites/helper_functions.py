@@ -23,7 +23,7 @@ def valid_data(flat_info):
 
 
 def extract_postcode_area(description):
-    """Extract first three postcode chars (i.e EH7). Return str, '' if none found."""
+    """Extract first three postcode chars (i.e EH7) from description. Return str, '' if none found."""
     postcode_search = re.search(r'[A-Z][A-Z]\d+', description)
     if postcode_search:
         postcode_area = postcode_search.group()
@@ -33,7 +33,7 @@ def extract_postcode_area(description):
 
 
 def extract_num_of_bedrooms(description):
-    """Extract the number of bedrooms in flat. Return int, 0 if none found."""
+    """Extract the number of bedrooms from description. Return int, 0 if none found."""
     bedroom_search = re.search(r'\d bedroom', description)
     bedroom_descr = bedroom_search.group()
     if bedroom_descr:
@@ -43,7 +43,7 @@ def extract_num_of_bedrooms(description):
 
 
 def extract_price(price_string):
-    """Extract flat price. Return int, 0 if none found."""
+    """Extract flat price from string. Return int, 0 if none found."""
     raw_price = re.search(r'\d+(,\d+)?(.\d+)?', price_string)
     if raw_price:
         price = raw_price.group().replace(',', '')

@@ -15,7 +15,6 @@ def insert_weekly_data():
 
 def select_all_data():
     """Insert all current data from flat_price_analysis table into table_data file"""
-    # TODO Format data properly into file
     sql = 'SELECT * FROM flat_price_analysis;'
     flat_price_analysis_rows = db.connect.select(sql)
     file_path = '/home/max/Python/projects/flat_price_analyser/table_data.txt'
