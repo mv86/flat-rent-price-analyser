@@ -9,27 +9,12 @@ from tabulate import tabulate
 from data_analysis import calculate
 
 
-def _display_averages_for(month):
+def display_averages_for(month):
+    """Print to terminal a table of flat price averages for month provided."""
     month = _validate_month(month)
-    
-    # Unpack flat price averages
     month_averages = calculate.flat_price_averages_for(month)
-    total_mean, total_median = month_averages.monthly_avg
-    one_bed_mean, one_bed_median = month_averages.one_bed_avg
-    two_bed_mean, two_bed_median = month_averages.two_bed_avg
-    eh6_mean, eh6_median = month_averages.eh6_avg
-    eh7_mean, eh7_median = month_averages.eh7_avg
-
-    # Create table to print to terminal
-    headers = ['Type', 'Mean', 'Median']
-    table = [
-        ['Total', total_mean, total_median],
-        ['One Bed', one_bed_mean, one_bed_median],
-        ['Two Bed', two_bed_mean, two_bed_median],
-        ['EH6', eh6_mean, eh6_median],
-        ['EH7', eh7_mean, eh7_median]
-    ]
-    print(tabulate(table, headers, tablefmt='psql')) 
+    headers = ['', 'Count', 'Mean', 'Median']
+    print(tabulate(month_averages, headers, tablefmt='psql')) 
 
 
 def _validate_month(month):
@@ -44,6 +29,20 @@ def _validate_month(month):
         raise ValueError(
             "Valid format for month: full name or three letter abreviation"
         )
+
+
+def main():
+    """Entry point to script"""
+    if len(sys.argv) == 2:
+        month = sys.argv[1]
+        display_averages_for(month)
+    else:
+        raise ValueError('1 argument expected: str month, e.g Jan or January')
+
+
+if __name__ == '__main__':
+    main()
+
 
 MONTH_DICTIONARY = {
     'jan': 1,
@@ -71,13 +70,3 @@ MONTH_DICTIONARY = {
     'december': 12
 }
 
-def main():
-    """Entry point to script"""
-    if len(sys.argv) == 2:
-        month = sys.argv[1]
-        _display_averages_for(month)
-    else:
-        raise ValueError('1 argument expected: str month, e.g Jan or January')
-
-if __name__ == '__main__':
-    main()
