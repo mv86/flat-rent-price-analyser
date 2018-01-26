@@ -1,20 +1,19 @@
 """Calculate monthly average/s of the flat prices stored in flat_price_analysis table"""
-import collections
 import statistics
 import db.connect
 
 
-PriceAverage = collections.namedtuple('PriceAverage', 'type count mean median')
-
-
 def flat_price_averages_for(month):
-    '''Return list of namedtuples containing all averages for passed month'''
+    '''Return list of tuples containing all averages for passed month.
+       
+       Tuple = (query type, type count, mean avg, median avg).
+    '''
     month_averages = [
-        PriceAverage('Month Total', *_average_of_month(month)),
-        PriceAverage('One Bedroom', *_average_of('bedrooms', 1, month)),
-        PriceAverage('Two Bedroom', *_average_of('bedrooms', 2, month)),
-        PriceAverage('EH6 Postcode', *_average_of('postcode_area', 'EH6', month)),
-        PriceAverage('EH7 Postcode', *_average_of('postcode_area', 'EH7', month)) 
+        ('Month Total', *_average_of_month(month)),
+        ('One Bedroom', *_average_of('bedrooms', 1, month)),
+        ('Two Bedroom', *_average_of('bedrooms', 2, month)),
+        ('EH6 Postcode', *_average_of('postcode_area', 'EH6', month)),
+        ('EH7 Postcode', *_average_of('postcode_area', 'EH7', month)) 
     ]
     return month_averages
 

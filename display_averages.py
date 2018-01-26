@@ -40,10 +40,6 @@ def main():
         raise ValueError('1 argument expected: str month, e.g Jan or January')
 
 
-if __name__ == '__main__':
-    main()
-
-
 MONTH_DICTIONARY = {
     'jan': 1,
     'january': 1,
@@ -69,4 +65,9 @@ MONTH_DICTIONARY = {
     'dec': 12,
     'december': 12
 }
+
+
+if __name__ == '__main__':
+    main()
+
 
