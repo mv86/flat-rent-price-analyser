@@ -1,5 +1,5 @@
 #!/home/max/Python/projects/flat_price_analyser/venv/bin/python
-"""Print table of average flat prices to terminal for passed month parameter.
+"""Script. Print table of average flat prices to terminal for passed month parameter.
     
    Arguments:
         Month: Full month name or 3 letter abreviation, eg. Jan/January
