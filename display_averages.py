@@ -5,7 +5,9 @@
         Month: Full month name or 3 letter abreviation, eg. Jan/January
 """
 import sys
+
 from tabulate import tabulate
+
 from data_analysis import calculate
 
 

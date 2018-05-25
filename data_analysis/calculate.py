@@ -1,5 +1,6 @@
 """Calculate monthly average/s of the flat prices stored in flat_price_analysis table"""
 import statistics
+
 import db.connect
 
 

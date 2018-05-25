@@ -22,7 +22,7 @@ def parse(soup):
        Return empty list if no data found.
     """
     listings = []
-    divs = soup.find_all('div', class_='is-list')  # replaced 'l-searchResult'
+    divs = soup.find_all('div', class_='is-list')
     wanted_divs = [div for div in divs if 'is-hidden' not in div.attrs['class']]
     for div in wanted_divs:
         try:

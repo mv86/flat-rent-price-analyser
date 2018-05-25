@@ -1,6 +1,7 @@
 """Scrape and parse websites. Link between main script and sites package"""
-import requests
 from bs4 import BeautifulSoup
+import requests
+
 from sites import lettingweb, rightmove, s1homes
 from logger import LOG
 

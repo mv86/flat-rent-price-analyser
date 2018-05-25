@@ -1,10 +1,11 @@
 """Setup database configuration"""
 from configparser import ConfigParser
+import pathlib
 
 
 def db_config():
     """Returns dictionary with database connection configuration"""
-    config_file = '/home/max/Python/projects/flat_price_analyser/db/database.ini'
+    config_file = pathlib.Path.cwd() / 'database.ini'
     section = 'postgresql'
     parser = ConfigParser()
     parser.read(config_file)

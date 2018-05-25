@@ -1,7 +1,9 @@
 """Handle connections to the PostgreSQL database."""
 import psycopg2
-from logger import LOG
+
 from .config import db_config
+from logger import LOG
+
 
 # TODO Add insert for multiple records withouth opening/closing connection every time
 
