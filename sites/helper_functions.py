@@ -26,18 +26,14 @@ def valid_data(flat_info):
 def extract_postcode_area(description):
     """Extract first three postcode chars (i.e EH7) from description. Return str, '' if none found."""
     postcode_search = re.search(r'[A-Z][A-Z]\d+', description)
-    if postcode_search:
-        postcode_area = postcode_search.group()
-    else:
-        postcode_area = ''
-    return postcode_area
+    return postcode_search.group() if postcode_search else ''
 
 
 def extract_num_of_bedrooms(description):
     """Extract the number of bedrooms from description. Return int, 0 if none found."""
-    bedroom_search = re.search(r'\d bedroom', description)
-    bedroom_descr = bedroom_search.group()
-    if bedroom_descr:
+    bedroom_info = re.search(r'\d bedroom', description)
+    if bedroom_info:
+        bedroom_descr = bedroom_info.group()
         bedrooms = bedroom_descr[0]
         return int(bedrooms)
     return 0
