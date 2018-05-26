@@ -10,7 +10,7 @@ URL = ('https://www.lettingweb.com/flats-to-rent/leith?'
        '&Term=Leith'
        '&BedsMin=1&BedsMax=2'
        '&HasPhotos=false'
-       '&Added=LastWeek')  # LastWeek LastDay \xa0
+       '&Added=LastWeek')  # LastWeek LastDay
 
 
 def parse(soup):
@@ -21,7 +21,7 @@ def parse(soup):
        Return empty list if no data found.
     """
     listings = []
-    divs = soup.find_all('div', class_='panel')  # 'prop_info
+    divs = soup.find_all('div', class_='panel')
     # Infomation is repeated in these divs. Only take the even iterations.
     wanted_divs = [div for idx, div in enumerate(divs) if idx % 2 != 0]
     for div in wanted_divs:
