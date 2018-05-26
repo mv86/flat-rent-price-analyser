@@ -1,11 +1,12 @@
 """Setup database configuration"""
 from configparser import ConfigParser
-import pathlib
+from pathlib import Path
 
 
 def db_config():
     """Returns dictionary with database connection configuration"""
-    config_file = pathlib.Path.cwd() / 'database.ini'
+    # Called from scripts one directory higher
+    config_file = Path.cwd() / 'db' / 'database.ini'
     section = 'postgresql'
     parser = ConfigParser()
     parser.read(config_file)

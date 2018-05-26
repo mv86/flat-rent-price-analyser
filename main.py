@@ -1,6 +1,6 @@
 #!/home/max/Python/projects/flat_price_analyser/venv/bin/python
 """Script to scrape data from flat listing websites and store in db. Runs weekly."""
-import pathlib
+from pathlib import Path
 
 from tabulate import tabulate
 
@@ -29,7 +29,7 @@ def select_all_data():
     table = tabulate(rows, headers, tablefmt='psql', numalign='left')
 
     # file_path = '/home/max/Python/projects/flat_price_analyser/table_data.txt'
-    file_path = pathlib.Path.cwd() / 'table_data.txt'
+    file_path = Path.cwd() / 'table_data.txt'
     with open(file_path, 'w') as file:
         file.write(table)
 

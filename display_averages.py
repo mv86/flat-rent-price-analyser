@@ -13,33 +13,30 @@ from data_analysis import calculate
 
 def display_averages_for(month):
     """Print to terminal a table of flat price averages for month provided."""
-    month = _validate_month(month)
-    month_averages = calculate.flat_price_averages_for(month)
-    headers = ['', 'Count', 'Mean', 'Median']
-    print(tabulate(month_averages, headers, tablefmt='psql')) 
+    month = _numeric_month(month)
+    if month:
+        month_averages = calculate.flat_price_averages_for(month)
+        headers = ['', 'Count', 'Mean', 'Median']
+        print(tabulate(month_averages, headers, tablefmt='psql')) 
 
 
-def _validate_month(month):
-    if not isinstance(month, str):
-        raise TypeError('String is required for month argument')
-    # If month is valid return as int representation understood by Postgresql
-    month = month.lower().strip()
-    if month in MONTH_DICTIONARY:
+def _numeric_month(month):
+    """Return int representation of month understood by Postgresql."""
+    try:
+        month = month.lower().strip()
         sql_month = MONTH_DICTIONARY[month]
         return sql_month
-    else:
-        raise ValueError(
-            "Valid format for month: full name or three letter abreviation"
-        )
+    except (ValueError, AttributeError, KeyError):  # Not a valid month
+        print("ERROR: Valid format for month: full name or three letter abreviation")
 
 
 def main():
     """Entry point to script"""
-    if len(sys.argv) == 2:
+    try:
         month = sys.argv[1]
         display_averages_for(month)
-    else:
-        raise ValueError('1 argument expected: str month, e.g Jan or January')
+    except IndexError:
+        print('ERROR: 1 argument expected: str month, e.g Jan or January')
 
 
 MONTH_DICTIONARY = {

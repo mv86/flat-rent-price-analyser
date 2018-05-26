@@ -5,8 +5,6 @@ from .config import db_config
 from logger import LOG
 
 
-# TODO Add insert for multiple records withouth opening/closing connection every time
-
 def insert(sql, data):
     """Wrapper to insert sql into db. Tuple of data paramaters required"""
     conn = None
@@ -15,11 +13,8 @@ def insert(sql, data):
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
 
-        if len(data) > 1:
-            for data_set in data:
-                cur.execute(sql, data_set)
-        else:
-            cur.execute(sql, data)
+        for data_set in data:
+            cur.execute(sql, data_set)
 
         cur.close()
         conn.commit()
@@ -30,7 +25,7 @@ def insert(sql, data):
             conn.close()
 
 
-def select(sql, data=()):
+def select(sql, data=None):
     """Wrapper to select sql from db. Tuple of data paramaters optional"""
     conn = None
     try:

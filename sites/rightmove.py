@@ -31,7 +31,7 @@ def parse(soup):
                 continue
             listings.append(flat_info)
         except Exception as exception:
-            LOG.error(f'Error: {exception}')
+            LOG.error(f'Error in div loop: {exception}')
             continue
     return listings
 
