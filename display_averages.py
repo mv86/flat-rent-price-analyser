@@ -1,6 +1,6 @@
-#!/home/max/Python/projects/flat_price_analyser/venv/bin/python
+#! python3.6
 """Script. Print table of average flat prices to terminal for passed month parameter.
-    
+
    Arguments:
         Month: Full month name or 3 letter abreviation, eg. Jan/January
 """
@@ -17,7 +17,7 @@ def display_averages_for(month):
     if month:
         month_averages = calculate.flat_price_averages_for(month)
         headers = ['', 'Count', 'Mean', 'Median']
-        print(tabulate(month_averages, headers, tablefmt='psql')) 
+        print(tabulate(month_averages, headers, tablefmt='psql'))
 
 
 def _numeric_month(month):

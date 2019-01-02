@@ -1,4 +1,4 @@
-#!/home/max/Python/projects/flat_price_analyser/venv/bin/python
+#! python3.6
 """Script to scrape data from flat listing websites and store in db. Runs weekly."""
 from pathlib import Path
 

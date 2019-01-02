@@ -1,5 +1,5 @@
 ## Leith, Edinburgh Flat Rental Price Analyser
-#### Python Version: 3.6.4
+#### Python Version: 3.6.7
 
 Prototype to perform weekly web scraping of flat rental infomation.
 
